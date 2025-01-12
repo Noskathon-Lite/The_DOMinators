@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
     cors({
-        origin: "*",
+        origin: "http://localhost:5174/",
         credentials: true,
     })
 );
@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 app.use("/api/v1/auth", authRoute);
 app.use(handleError);
 
-const PORT = process.env.PORT || 5000;
+const PORT = 8001;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

@@ -49,15 +49,48 @@ export class CropController {
 
     public getCropsByMonth = TryCatch(
         async (req: Request, res: Response, next: NextFunction) => {
-            const { month } = req.params;
+            const { month } = req.query;
 
-            const crops = await CropServices.getCropsByMonth(month);
+            if (!month) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Please provide a month",
+                });
+            }
+
+            const crops = await CropServices.getCropsByMonth(month as string);
 
             return res.status(200).json({
                 success: true,
                 message: "Crops fetched successfully",
                 crops,
             });
+        }
+    );
+
+    public getAlternativeCrops = TryCatch(
+        async (req: Request, res: Response, next: NextFunction) => {
+            const { month } = req.query;
+
+            const crops = await CropServices.getAlternativeCrops(
+                month as string
+            );
+
+            return res.status(200).json({
+                success: true,
+                message: "Alternative crops fetched successfully",
+                crops,
+            });
+        }
+    );
+
+    public getCustomerPreferenceForMonth = TryCatch(
+        async (req: Request, res: Response, next: NextFunction) => {
+            return {
+                success: true,
+                message: "success",
+                crop,
+            };
         }
     );
 }

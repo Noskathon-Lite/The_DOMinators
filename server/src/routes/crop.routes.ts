@@ -20,4 +20,20 @@ router.get("/get", async (req, res, next) => {
     }
 });
 
+router.get("/alternative", async (req, res, next) => {
+    try {
+        await cropController.getAlternativeCrops(req, res, next);
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.get("/customer-trend", async (req, res, next) => {
+    try {
+        await cropController.getCustomerPreferenceForMonth(req, res, next);
+    } catch (error) {
+        next(error);
+    }
+});
+
 export default router;

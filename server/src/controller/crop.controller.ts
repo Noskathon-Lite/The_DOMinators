@@ -86,11 +86,17 @@ export class CropController {
 
     public getCustomerPreferenceForMonth = TryCatch(
         async (req: Request, res: Response, next: NextFunction) => {
-            return {
+            const { month } = req.query;
+
+            const crops = await CropServices.getCustomerPreferenceForMonth(
+                month as string
+            );
+
+            return res.status(200).json({
                 success: true,
-                message: "success",
-                crop,
-            };
+                message: "Alternative crops fetched successfully",
+                crops,
+            });
         }
     );
 }

@@ -6,6 +6,7 @@ import About from '../pages/About';
 import Dashboard from '../pages/Dashboard';
 import Prediction from '../pages/Prediction';
 import Contact from '../pages/Contact';
+import SeasonalVegetable from '@/pages/SesonalVegetable';
 
 export default function MainLayout() {
   return (
@@ -18,6 +19,7 @@ export default function MainLayout() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/prediction" element={<Prediction />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/seasonal" element={<SeasonalVegetable />} />
         </Routes>
       </main>
       {/* <Footer /> */}

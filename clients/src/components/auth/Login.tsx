@@ -3,16 +3,35 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../store/authSlice/index'; // Import login action
+import { RootState } from '../../store/index'; // Import RootState
+import { Toast } from '../ui/toast';
+// Import toast for notifications
 
 export default function Login() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isLoading, isAuthenticated, user } = useSelector((state: RootState) => state.auth);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Handle login logic here
-    console.log('Login:', { email, password });
-    navigate('/home'); // Redirect to home on successful login
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = { email, password };
+    
+    // Dispatch login action
+    const result = await dispatch(loginUser(formData));
+
+    // Check if login was successful
+    if (result.meta.requestStatus === 'fulfilled') {
+      Toast.success('Login Successful!');
+      navigate('/home'); // Navigate to home page upon successful login
+    } else {
+      toast.error('Login failed. Please try again.');
+    }
   };
 
   return (
@@ -24,12 +43,9 @@ export default function Login() {
         </CardHeader>
         <CardContent>
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleLogin();
-            }}
+            onSubmit={handleLogin}
             className="space-y-4"
-          >
+          > 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 Email Address
@@ -58,8 +74,9 @@ export default function Login() {
               type="submit"
               variant="default"
               className="w-full bg-green-600 hover:bg-green-700 text-white"
+             
             >
-              Log In
+              {isLoading ? 'Log in': 'Logging in...' }
             </Button>
           </form>
           <div className="mt-4 text-center">

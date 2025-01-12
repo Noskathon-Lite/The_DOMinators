@@ -21,17 +21,19 @@ export default function MainLayout() {
       <main className="flex-grow">
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/landing" element={<LandingPage />} >
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
 
+          </Route>
+         
           {/* Authenticated Routes */}
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/prediction" element={<Prediction />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/seasonal" element={<SeasonalVegetable />} />
+          <Route path="/recommendation" element={<SeasonalVegetable />} />
         </Routes>
       </main>
      

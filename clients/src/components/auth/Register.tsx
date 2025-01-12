@@ -1,34 +1,46 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { useDispatch, useSelector } from 'react-redux';  // Import useDispatch and useSelector
-import { registerUser } from '../../store/authSlice/index'; // Import login action
+import { useToast } from "@/hooks/use-toast";
+
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from '@/components/ui/card';
 
 
-import { RootState } from '@/store';  // Import RootState for type checking
+import { registerUser } from '../../store/authSlice/index'; // Import registerUser action
+import { RootState } from '@/store'; // Import RootState for type checking
+
 
 export default function Register() {
+  const { toast } = useToast();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoading, user, isAuthenticated } = useSelector(
-    (state: RootState) => state.auth
-  );
 
+
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [name, setName] = useState('');
-  
+  const handleRegister = async () => {
+    const formData = { name, email, password };
 
-  const handleRegister = () => {
-   
-    const formData = {name, email, password };
-    dispatch(registerUser(formData));  // Dispatch the registerUser async action
-
-    if (isAuthenticated) {
-      navigate('/login'); // Redirect to login page after successful registration
+    try {
+      const response = await dispatch(registerUser(formData)).unwrap(); // Unwraps the resolved promise
+      if (response.success) {
+      
+        navigate('/auth/login'); // Navigate to login page upon success
+      } else {
+        console.log("Please try again")
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -50,19 +62,25 @@ export default function Register() {
             className="space-y-4"
           >
             <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                        Name
-                      </label>
-                      <Input
-                        type="name"
-                        id="name"
-                        placeholder="Enter your name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                      />
-                    </div>
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Name
+              </label>
+              <Input
+                type="text"
+                id="name"
+                placeholder="Enter your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Email Address
               </label>
               <Input
@@ -74,7 +92,10 @@ export default function Register() {
               />
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Password
               </label>
               <Input
@@ -85,14 +106,14 @@ export default function Register() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-        
+
             <Button
               type="submit"
               variant="default"
               className="w-full bg-green-600 hover:bg-green-700 text-white"
-             
+              
             >
-              {isLoading ? 'Register' : 'Registerin....'}
+              Register
             </Button>
           </form>
           <div className="mt-4 text-center">
@@ -101,7 +122,7 @@ export default function Register() {
               <Button
                 variant="link"
                 className="text-green-600 hover:text-green-800"
-                onClick={() => navigate('/login')}
+                onClick={() => navigate('/auth/login')}
               >
                 Log in
               </Button>

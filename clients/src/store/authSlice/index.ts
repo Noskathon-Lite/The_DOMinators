@@ -26,7 +26,7 @@ export const registerUser = createAsyncThunk(
   "/auth/register",
   async (formData: { name: string; email: string; password: string }) => {
     const response = await axios.post(
-      `http://localhost:8001/api/auth/register`,  // Hardcoded URL
+      `http://localhost:8001/api/v1/auth/register`,  // Hardcoded URL
       formData,
       { withCredentials: true }
     );
@@ -38,7 +38,7 @@ export const loginUser = createAsyncThunk(
   "/auth/login",
   async (formData: { email: string; password: string }) => {
     const response = await axios.post(
-      `http://localhost:8001/api/auth/login`,  // Hardcoded URL
+      `http://localhost:8001/api/v1/auth/login`,  // Hardcoded URL
       formData,
       { withCredentials: true }
     );
@@ -77,9 +77,17 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload.success ? action.payload.user : null;
-        state.isAuthenticated = action.payload.success;
+        if (action.payload.success) {
+          state.user = action.payload.user;
+          state.isAuthenticated = true;
+          sessionStorage.setItem('isAuthenticated', 'true');  // Set as 'true' explicitly
+        } else {
+          state.user = null;
+          state.isAuthenticated = false;
+          sessionStorage.setItem('isAuthenticated', 'false');  // Set as 'false'
+        }
       })
+      
       .addCase(loginUser.rejected, (state) => {
         state.isLoading = false;
         state.user = null;

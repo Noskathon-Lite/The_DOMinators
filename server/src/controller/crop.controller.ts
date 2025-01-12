@@ -99,4 +99,33 @@ export class CropController {
             });
         }
     );
+
+    // New method for crop prediction
+    public predictCropYield = TryCatch(
+        async (req: Request, res: Response, next: NextFunction) => {
+            const { cropType, temperature, rainfall, ph } = req.body;
+
+            // Ensure all necessary data is provided
+            if (!cropType || !temperature || !rainfall || !ph) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Missing required fields for prediction",
+                });
+            }
+
+            // Perform crop prediction logic (this could be a service or algorithm)
+            const prediction = await CropServices.predictCropYield({
+                cropType,
+                temperature,
+                rainfall,
+                ph,
+            });
+
+            return res.status(200).json({
+                success: true,
+                message: "Prediction fetched successfully",
+                prediction,
+            });
+        }
+    );
 }

@@ -6,6 +6,7 @@ import { SearchBar } from '@/components/logincomponents/SearchBar';
 import { cropData } from '@/data/crops';
 import { CropCard } from '@/components/logincomponents/CropCard';
 import Navbar from '@/components/common/Navbar';
+import { Footer } from '@/components/logincomponents/Footer';
 
 function SeasonalVegetable() {
   const [selectedMonth, setSelectedMonth] = useState('january');
@@ -97,6 +98,7 @@ function SeasonalVegetable() {
           </section>
         </div>
       </main>
+      <Footer/>
     </div>
   );
 }

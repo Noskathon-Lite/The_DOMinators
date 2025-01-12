@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../store/authSlice/index'; // Import login action
-import { RootState } from '../../store/index'; // Import RootState
-import { Toast } from '../ui/toast';
+import { RootState } from '../../store/index'; 
+import { useToast } from "@/hooks/use-toast";
+// Import RootState
+
 // Import toast for notifications
 
 export default function Login() {
@@ -16,24 +18,30 @@ export default function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const user2 =sessionStorage.getItem('isAuthenticated');
+
 
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+
     const formData = { email, password };
     
     // Dispatch login action
-    const result = await dispatch(loginUser(formData));
+    const result = await dispatch(loginUser(formData)).unwrap(); // Unwraps the resolved promise
+    if (data.success) {
+      toast.success('Login Successful!');
 
-    // Check if login was successful
-    if (result.meta.requestStatus === 'fulfilled') {
-      Toast.success('Login Successful!');
-      navigate('/home'); // Navigate to home page upon successful login
+      navigate('/home'); // Navigate to login page upon success
     } else {
-      toast.error('Login failed. Please try again.');
+      toast.error(response.message || 'Registration failed. Please try again.');
     }
-  };
-
+  }
+  useEffect(()=>{
+    if(user2){
+      navigate('/home');
+    }
+  },[user2])
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br bg-black">
       <Card className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg text-4xl">
@@ -85,7 +93,7 @@ export default function Login() {
               <Button
                 variant="link"
                 className="text-green-600 hover:text-green-800"
-                onClick={() => navigate('/register')}
+                onClick={() => navigate('/auth/register')}
               >
                 Create an account
               </Button>

@@ -1,4 +1,5 @@
 import Navbar from "@/components/common/Navbar";
+import { Footer } from "@/components/logincomponents/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -105,6 +106,7 @@ export default function Dashboard() {
         </CardContent>
       </Card>
     </div>
+    <Footer/>
     </div>
   );
 }

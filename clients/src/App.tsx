@@ -48,7 +48,7 @@ function App() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Leaf className="h-8 w-8 text-green-500" />
-              <h1 className="text-2xl font-bold text-gray-900">Crop Advisor</h1>
+              <h1 className="text-2xl font-bold text-gray-900">climateGrow</h1>
             </div>
             <div className="flex items-center gap-4">
               <SearchBar searchTerm={searchTerm} onSearch={setSearchTerm} />

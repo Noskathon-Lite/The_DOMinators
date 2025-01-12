@@ -19,7 +19,7 @@ export const MonthSelector: React.FC<MonthSelectorProps> = ({
   return (
     <div className="relative w-full max-w-xs">
       <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-        <Calendar className="h-5 w-5 text-gray-400" />
+        <Calendar className="h-5 w-5 text-black-400 z-40" />
       </div>
       <select
         value={selectedMonth}

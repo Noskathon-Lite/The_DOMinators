@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Leaf, LogIn, UserPlus } from 'lucide-react';
-import { MonthSelector } from '../components/MonthSelector';
-import { SearchBar } from '../components/SearchBar';
-import { AuthModal } from '../components/AuthModal';
-import { CropCard } from '../components/CropCard';
-import { cropData } from '../data/crops';
+import { AuthModal } from '@/components/logincomponents/AuthModal';
+import { MonthSelector } from '@/components/logincomponents/MonthSelector';
+import { SearchBar } from '@/components/logincomponents/SearchBar';
+import { cropData } from '@/data/crops';
+import { CropCard } from '@/components/logincomponents/CropCard';
+
 
 function SeasonalVegetable() {
   const [selectedMonth, setSelectedMonth] = useState('january');
@@ -12,7 +13,7 @@ function SeasonalVegetable() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const [user, setUser] = useState<{ email: string } | null>(null);
-N
+
   const monthData = cropData[selectedMonth];
 
   const handleAuth = (email: string, password: string) => {

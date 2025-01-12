@@ -1,22 +1,21 @@
-import { ArrowRight, LineChart, Sprout, Users } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import Navbar from '@/components/common/Navbar';
-import { DataVisualization } from '@/components/logincomponents/DataVisualization';
-import { Card } from '@/components/ui/card';
+import { Card } from "@/components/ui/card";
+import { ImageCarousel } from '@/components/logincomponents/Caraousel';
 import { Separator } from '@radix-ui/react-dropdown-menu';
+import { Footer } from '@/components/logincomponents/Footer';
+import { DataVisualization } from '@/components/logincomponents/DataVisualization';
 
-export default function Home() {
+const LandingPage: React.FC = () => {
   return (
-    <div className="flex flex-col w-full">
-      {/* Hero Section */}
-      <div className=" bg-background">
+    <div className="w-100 bg-background">
+      {/* Navbar Section */}
       <Navbar />
       
-      <main className="pt-16">
+      <main className="pt-16 w-100">
         {/* Hero Section */}
-        <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-primary/5 to-background">
-          <div className="max-w-7xl mx-auto text-center">
+        <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-primary/5 to-background w-full">
+          <div className="max-w-full mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-primary mb-6">
               Welcome to ClimateGrow
             </h1>
@@ -28,12 +27,12 @@ export default function Home() {
         </section>
 
         {/* Carousel Section */}
-        <section className="py-12 px-4 sm:px-6 lg:px-8">
+        <section className="py-12 px-4 sm:px-6 lg:px-8 w-full">
           <ImageCarousel />
         </section>
 
         {/* Data Visualization Section */}
-        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-muted/30">
+        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-muted/30 w-full">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-3xl font-bold text-primary mb-8 text-center">
               Data-Driven Insights
@@ -45,7 +44,7 @@ export default function Home() {
         </section>
 
         {/* Features Section */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8">
               <Card className="p-6">
@@ -73,7 +72,7 @@ export default function Home() {
         </section>
 
         {/* Mission Section */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-primary text-primary-foreground">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-primary text-primary-foreground w-full">
           <div className="max-w-7xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
             <p className="text-xl max-w-3xl mx-auto">
@@ -86,8 +85,10 @@ export default function Home() {
         <Separator />
       </main>
 
+      {/* Footer Section */}
       <Footer />
     </div>
-    </div>
   );
-}
+};
+
+export default LandingPage;

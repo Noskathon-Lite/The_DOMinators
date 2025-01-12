@@ -1,5 +1,5 @@
 import { BrowserRouter as Router } from 'react-router-dom';
-import { ThemeProvider } from './components/theme-provider';
+import { ThemeProvider } from './components/logincomponents/theme-provider';
 import MainLayout from './layouts/MainLayout';
 
 function App() {

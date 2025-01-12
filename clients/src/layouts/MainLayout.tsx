@@ -1,20 +1,32 @@
-import { Routes, Route } from 'react-router-dom';
-// import Navbar from '../components/Navbar';
-// import Footer from '../components/Footer';
-import Home from '../pages/Home';
-import About from '../pages/About';
-import Dashboard from '../pages/Dashboard';
-import Prediction from '../pages/Prediction';
-import Contact from '../pages/Contact';
+import Login from '@/components/auth/Login';
+import Register from '@/components/auth/Register';
+
+import About from '@/pages/About';
+import Contact from '@/pages/Contact';
+import Dashboard from '@/pages/Dashboard';
+import Home from '@/pages/Home';
+import LandingPage from '@/pages/Landing';
+import Prediction from '@/pages/Prediction';
 import SeasonalVegetable from '@/pages/SesonalVegetable';
+import { Routes, Route } from 'react-router-dom';
+
+
+
+
 
 export default function MainLayout() {
   return (
     <div className="min-h-screen flex flex-col">
-      {/* <Navbar /> */}
+     
       <main className="flex-grow">
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* Public Routes */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
+          {/* Authenticated Routes */}
+          <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/prediction" element={<Prediction />} />
@@ -22,7 +34,7 @@ export default function MainLayout() {
           <Route path="/seasonal" element={<SeasonalVegetable />} />
         </Routes>
       </main>
-      {/* <Footer /> */}
+     
     </div>
   );
 }

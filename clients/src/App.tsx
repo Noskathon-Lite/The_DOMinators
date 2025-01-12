@@ -12,11 +12,11 @@ function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const [user, setUser] = useState<{ email: string } | null>(null);
-
+N
   const monthData = cropData[selectedMonth];
 
   const handleAuth = (email: string, password: string) => {
-    // In a real app, you would handle authentication with a backend service
+    // In a real ap`p, you would handle authentication with a backend service
     setUser({ email });
     setIsAuthModalOpen(false);
   };

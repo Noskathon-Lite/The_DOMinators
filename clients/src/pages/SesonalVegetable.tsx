@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Leaf, LogIn, UserPlus } from 'lucide-react';
-import { MonthSelector } from './components/MonthSelector';
-import { SearchBar } from './components/SearchBar';
-import { AuthModal } from './components/AuthModal';
-import { CropCard } from './components/CropCard';
-import { cropData } from './data/crops';
+import { MonthSelector } from '../components/MonthSelector';
+import { SearchBar } from '../components/SearchBar';
+import { AuthModal } from '../components/AuthModal';
+import { CropCard } from '../components/CropCard';
+import { cropData } from '../data/crops';
 
-function App() {
+function SeasonalVegetable() {
   const [selectedMonth, setSelectedMonth] = useState('january');
   const [searchTerm, setSearchTerm] = useState('');
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -133,4 +133,4 @@ N
   );
 }
 
-export default App;
+export default SeasonalVegetable;

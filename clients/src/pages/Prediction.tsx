@@ -34,10 +34,10 @@ export default function Prediction() {
   };
 
   return (
-    <div>
+    <div className='bg-gradient-to-b from-green-200 to-white'>
       <Navbar/>
-      <div className="container max-w-screen-xl mx-auto py-12 bg-black text-white">
-        <h1 className="text-4xl font-bold mb-8 text-center text-white">Crop Yield Prediction</h1>
+      <div className="container max-w-screen-xl  py-12 text-white">
+        <h1 className="text-4xl font-bold mb-8 text-center text-black">Crop Yield Prediction</h1>
         
         <div className="grid gap-8 lg:grid-cols-2 lg:max-w-5xl mx-auto">
           <Card className="bg-gray-800 text-white">
@@ -47,7 +47,7 @@ export default function Prediction() {
             <CardContent className="space-y-6">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-400">Crop Type</label>
-                <Select value={cropType} onValueChange={setCropType}>
+                <Select value={cropType} onValueChange={setCropType} className="1">
                   <SelectTrigger>
                     <SelectValue placeholder="Select a crop" />
                   </SelectTrigger>

@@ -45,7 +45,7 @@ export default function Register() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br bg-black">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br bg-white">
       <Card className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
         <CardHeader>
           <CardTitle className="text-green-700 text-3xl">Create an Account</CardTitle>
@@ -71,6 +71,7 @@ export default function Register() {
               <Input
                 type="text"
                 id="name"
+                className='bg-gray-100 text-black outline-none focus:outline-none border-none'
                 placeholder="Enter your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -86,6 +87,7 @@ export default function Register() {
               <Input
                 type="email"
                 id="email"
+                className='bg-gray-100 text-black outline-none focus:outline-none border-none'
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -102,6 +104,7 @@ export default function Register() {
                 type="password"
                 id="password"
                 placeholder="Enter your password"
+                className='bg-gray-100 text-black outline-none focus:outline-none border-none'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />

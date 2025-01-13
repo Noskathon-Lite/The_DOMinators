@@ -54,10 +54,10 @@ export default function Prediction() {
   };
   
   return (
-    <div>
+    <div className="flex flex-col w-full bg-gradient-to-b from-green-200 to-white text-white">
       <Navbar />
-      <div className="container max-w-screen-xl mx-auto py-12 bg-black text-white">
-        <h1 className="text-4xl font-bold mb-8 text-center text-white">
+      <div className="container max-w-screen-xl mx-auto py-12">
+        <h1 className="text-4xl font-bold mb-8 text-center text-black">
           Crop Prediction
         </h1>
 

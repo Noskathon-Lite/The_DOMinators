@@ -8,18 +8,18 @@ import { DataVisualization } from '@/components/logincomponents/DataVisualizatio
 
 const LandingPage: React.FC = () => {
   return (
-    <div className="w-100 bg-background">
+    <div className="w-100 bg-white">
       {/* Navbar Section */}
       <Navbar />
       
-      <main className="pt-16 w-100">
+      <main className="">
         {/* Hero Section */}
-        <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-primary/5 to-background w-full">
-          <div className="max-w-full mx-auto text-center">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-primary mb-6">
+        <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-200 to-white">
+          <div className="max-w-7xl mx-auto text-center">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-green-800 mb-6">
               Welcome to ClimateGrow
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               ClimateGrow is an AI-powered online platform that predicts how climate change affects
               the growth of fruits and vegetables.
             </p>
@@ -27,42 +27,42 @@ const LandingPage: React.FC = () => {
         </section>
 
         {/* Carousel Section */}
-        <section className="py-12 px-4 sm:px-6 lg:px-8 w-full">
+        <section className="py-12 px-4 sm:px-6 lg:px-8">
           <ImageCarousel />
         </section>
 
         {/* Data Visualization Section */}
-        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-muted/30 w-full">
+        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-green-50">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl font-bold text-primary mb-8 text-center">
+            <h2 className="text-3xl font-bold text-green-800 mb-8 text-center">
               Data-Driven Insights
             </h2>
-            <Card className="p-6">
+            <Card className="p-6 bg-white shadow-lg">
               <DataVisualization />
             </Card>
           </div>
         </section>
 
         {/* Features Section */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 w-full">
+        <section className="py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8">
-              <Card className="p-6">
-                <h3 className="text-xl font-semibold mb-4">
+              <Card className="p-6 bg-white shadow-lg">
+                <h3 className="text-xl font-semibold mb-4 text-green-700">
                   Machine Learning Models
                 </h3>
-                <p className="text-muted-foreground">
+                <p className="text-gray-600">
                   Using Kaggle datasets including historical crop yields, temperature variability,
                   and rainfall patterns, we build sophisticated ML models to predict future crop
                   yields under various climate scenarios.
                 </p>
               </Card>
               
-              <Card className="p-6">
-                <h3 className="text-xl font-semibold mb-4">
+              <Card className="p-6 bg-white shadow-lg">
+                <h3 className="text-xl font-semibold mb-4 text-green-700">
                   Empirical Research
                 </h3>
-                <p className="text-muted-foreground">
+                <p className="text-gray-600">
                   Our ongoing data collection in Nepal advances our AI model's accuracy,
                   incorporating real-world agricultural conditions and climate impacts.
                 </p>
@@ -72,7 +72,7 @@ const LandingPage: React.FC = () => {
         </section>
 
         {/* Mission Section */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-primary text-primary-foreground w-full">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-green-700 text-white">
           <div className="max-w-7xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
             <p className="text-xl max-w-3xl mx-auto">

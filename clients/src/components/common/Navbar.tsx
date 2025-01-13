@@ -47,11 +47,11 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             {!(isAuthenticated || user1) ? (
               <>
-                <Button variant="outline" onClick={() => navigate('/auth/login')} className="flex items-center gap-1">
+                <Button variant="outline" onClick={() => navigate('/auth/login')} className="flex items-center gap-1 bg-gray-400 border-none rounded-full">
                   <LogIn className="h-4 w-4 text-white" />
                   Login
                 </Button>
-                <Button variant="outline" onClick={() => navigate('/auth/register')} className="flex items-center gap-1">
+                <Button variant="outline" onClick={() => navigate('/auth/register')} className="flex items-center gap-1 bg-gray-400 border-none rounded-full">
                   <UserPlus className="h-4 w-4" />
                   Signup
                 </Button>

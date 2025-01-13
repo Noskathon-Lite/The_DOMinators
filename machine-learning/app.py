@@ -1,8 +1,12 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import pickle
 import numpy as np
 
 app = Flask(__name__)
+
+# Enable CORS
+CORS(app)
 
 # Load the model and label encoder
 with open('crop_recommendation_model.pkl', 'rb') as model_file:

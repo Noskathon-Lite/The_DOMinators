@@ -31,6 +31,7 @@ export default function Navbar() {
           </div>
           
           {/* Navigation Links */}
+          <div className="hidden md:flex items-center gap-6 flex justify-between">
           <div className="flex space-x-6 text-black">
             {(isAuthenticated || user1) && (
               <div className="flex space-x-4 text-black">
@@ -56,11 +57,11 @@ export default function Navbar() {
                 </Button>
               </>
             ) : (
-              <Button variant="outline" onClick={handleLogout} className="flex items-center gap-1">
-                <LogOut className="h-4 w-4 text-red-500" />
-                Logout
+              <Button variant="outline" onClick={handleLogout} className="flex items-center gap-1 bg-white rounded-full hover:bg-gray-100">
+                <LogOut className="h-4 w-4 text-black  " />
               </Button>
             )}
+          </div>
           </div>
         </div>
       </div>

@@ -24,7 +24,7 @@ export const MonthSelector: React.FC<MonthSelectorProps> = ({
       <select
         value={selectedMonth}
         onChange={(e) => onMonthChange(e.target.value)}
-        className="block w-full pl-10 pr-4 py-2.5 text-base border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm rounded-lg bg-white shadow-sm"
+        className="block w-full pl-10 pr-4 py-2.5 text-base border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm rounded-lg bg-white text-black shadow-sm"
       >
         {months.map((month) => (
           <option key={month} value={month}>

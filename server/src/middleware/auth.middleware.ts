@@ -7,7 +7,7 @@ import UserServices from "../services/user.services";
 declare global {
     namespace Express {
         interface Request {
-            user: UserType | null;
+            user?: UserType | null;
         }
     }
 }

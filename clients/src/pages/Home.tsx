@@ -1,69 +1,93 @@
-import { ArrowRight, LineChart, Sprout, Users } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+
+
+import { DataVisualization } from '@/components/logincomponents/DataVisualization';
+import { Card } from '@/components/ui/card';
+import { Separator } from '@radix-ui/react-dropdown-menu';
+import { ImageCarousel } from '@/components/logincomponents/Caraousel';
+import { Footer } from '@/components/logincomponents/Footer';
+import Navbar from '@/components/common/Navbar';
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative py-20 md:py-32 bg-gradient-to-b from-primary/10 to-background">
-        <div className="container">
-          <div className="flex flex-col items-center text-center space-y-8">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter">
-              Predict Crop Yields in a
-              <span className="text-primary"> Changing Climate</span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-[600px]">
-              AI-powered insights to help farmers, policymakers, and researchers understand and adapt to climate change impacts on agriculture.
-            </p>
-            <div className="flex gap-4">
-              <Button asChild size="lg">
-                <Link to="/dashboard">
-                  Get Started <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link to="/about">Learn More</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+    <div className="flex flex-col w-full bg-white text-green-900">
+      {/* Navbar */}
+     <Navbar />
 
-      {/* Features Section */}
-      <section className="py-20">
-        <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col items-center text-center p-6 space-y-4">
-              <div className="p-3 rounded-full bg-primary/10">
-                <LineChart className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold">Predictive Analytics</h3>
-              <p className="text-muted-foreground">
-                Advanced AI models predict crop yields based on climate data and historical trends.
-              </p>
-            </div>
-            <div className="flex flex-col items-center text-center p-6 space-y-4">
-              <div className="p-3 rounded-full bg-primary/10">
-                <Sprout className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold">Crop Insights</h3>
-              <p className="text-muted-foreground">
-                Detailed analysis of how different crops respond to changing climate conditions.
-              </p>
-            </div>
-            <div className="flex flex-col items-center text-center p-6 space-y-4">
-              <div className="p-3 rounded-full bg-primary/10">
-                <Users className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold">Community Focus</h3>
-              <p className="text-muted-foreground">
-                Built with and for Nepalese farming communities to ensure practical impact.
-              </p>
+
+      <main className="pt-16">
+        {/* Hero Section */}
+        <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-200 to-white">
+          <div className="max-w-7xl mx-auto text-center">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-green-800 mb-6">
+              Welcome to ClimateGrow
+            </h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              ClimateGrow is an AI-powered online platform that predicts how climate change affects
+              the growth of fruits and vegetables.
+            </p>
+          </div>
+        </section>
+
+        {/* Carousel Section */}
+        <section className="py-12 px-4 sm:px-6 lg:px-8">
+          <ImageCarousel />
+        </section>
+
+        {/* Data Visualization Section */}
+        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-green-50">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl font-bold text-green-800 mb-8 text-center">
+              Data-Driven Insights
+            </h2>
+            <Card className="p-6 bg-white shadow-lg">
+              <DataVisualization />
+            </Card>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section className="py-16 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8">
+              <Card className="p-6 bg-white shadow-lg">
+                <h3 className="text-xl font-semibold mb-4 text-green-700">
+                  Machine Learning Models
+                </h3>
+                <p className="text-gray-600">
+                  Using Kaggle datasets including historical crop yields, temperature variability,
+                  and rainfall patterns, we build sophisticated ML models to predict future crop
+                  yields under various climate scenarios.
+                </p>
+              </Card>
+              
+              <Card className="p-6 bg-white shadow-lg">
+                <h3 className="text-xl font-semibold mb-4 text-green-700">
+                  Empirical Research
+                </h3>
+                <p className="text-gray-600">
+                  Our ongoing data collection in Nepal advances our AI model's accuracy,
+                  incorporating real-world agricultural conditions and climate impacts.
+                </p>
+              </Card>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* Mission Section */}
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-green-700 text-white">
+          <div className="max-w-7xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
+            <p className="text-xl max-w-3xl mx-auto">
+              ClimateGrow aims to provide evidence-based strategies to help farmers and
+              policymakers mitigate agricultural risks posed by climate change.
+            </p>
+          </div>
+        </section>
+
+        <Separator />
+      </main>
+
+      <Footer />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Droplets, Thermometer, Sprout } from 'lucide-react';
-import { Crop } from '../types';
+import { Crop } from '../../types';
 
 interface CropCardProps {
   crop: Crop;

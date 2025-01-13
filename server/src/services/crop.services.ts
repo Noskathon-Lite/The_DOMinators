@@ -1,4 +1,5 @@
 import { Crop } from "../models/crop.model";
+import axios from "axios";
 
 export default class ClassService {
     public static async createCrop(data: any) {
@@ -33,5 +34,12 @@ export default class ClassService {
         const alternativeCrops = crops.flatMap((crop) => crop.alternativeCrops);
 
         return alternativeCrops;
+    }
+
+    public static async predictCropYield(data: any) {
+        // Find the crop by ID
+        const crop = await axios.get(`http://localhost:5000/predict`, { data });
+
+        return crop;
     }
 }

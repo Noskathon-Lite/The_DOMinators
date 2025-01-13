@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
+import { CohereClientV2 } from 'cohere-ai'
+
+
+const cohere = new CohereClientV2({
+  token: 'YvNDXA10e30C53q8Z5hrZKohNvZWjluAG55hz3Sb', // Replace with your API key
+});
+
+
 
 interface Message {
   sender: 'bot' | 'user';
   text: string;
 }
+
 
 const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -12,27 +21,42 @@ const Chat = () => {
   const handleSendMessage = async () => {
     if (!input.trim()) return;
 
-    // Add user's message
+    // Add user's message to the message list
     const newMessages = [...messages, { sender: 'user', text: input }];
     setMessages(newMessages);
 
-    // Simulate bot response
+    // Get bot's response
     const botResponse = await getBotResponse(input);
 
-    // Add bot's response
+    // Add bot's response to the message list
     setMessages([...newMessages, { sender: 'bot', text: botResponse }]);
     setInput('');
   };
 
+  // Function to get bot response from Cohere API
   const getBotResponse = async (userInput: string): Promise<string> => {
-    // Replace this with your backend logic if necessary
-    return new Promise((resolve) =>
-      setTimeout(() => resolve(`You said: "${userInput}"`), 1000)
-    );
+    try {
+      const response = await cohere.chat({
+        model: 'command-r-plus',
+        messages: [
+          {
+            role: 'user',
+            content: userInput, // Pass the userInput dynamically
+          },
+        ],
+      });
+      console.log(response.message.content[0].text);
+      return response.message.content[0].text;
+    } catch (error) {
+      console.error("Error fetching chatbot response:", error);
+      return "An error occurred while trying to get a response. Please try again.";
+    }
   };
+  
+  
 
   return (
-    <div className="max-w-md  w-full h-full p-4 rounded-lg shadow text-black">
+    <div className="max-w-md w-full h-full p-4 rounded-lg shadow text-black">
       <div className="h-80 overflow-y-auto bg-white p-4 rounded-lg border border-gray-300">
         {messages.map((msg, index) => (
           <div

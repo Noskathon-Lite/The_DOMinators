@@ -15,7 +15,11 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
     cors({
-        origin: "*",
+        origin: [
+            "http://localhost:5173",
+            "http://localhost:5174",
+            "http://localhost:5175",
+        ],
         credentials: true,
     })
 );
@@ -29,7 +33,7 @@ app.get("/", (req, res) => {
 app.use("/api/v1/auth", authRoute);
 app.use(handleError);
 
-const PORT =8001;
+const PORT = 8001;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

@@ -72,4 +72,22 @@ export class AuthController {
                 });
         }
     );
+
+    public userLogout = TryCatch(
+        async (req: Request, res: Response, next: NextFunction) => {
+            return res
+                .status(200)
+                .cookie("token", "", {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === "production",
+                    sameSite: "none",
+                    expires: new Date(0),
+                })
+                .json({
+                    success: true,
+                    message: "User logout successfully",
+                    user: null,
+                });
+        }
+    );
 }

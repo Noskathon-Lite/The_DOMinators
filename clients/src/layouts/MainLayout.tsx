@@ -20,7 +20,7 @@ const Contact = lazy(() => import("@/pages/Contact"));
 export default function MainLayout() {
   
   // Check authentication state from sessionStorage or Redux store
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state:any) => state.auth);
   const user1 = sessionStorage.getItem("isAuthenticated");
 
   // Sync sessionStorage state with Redux if needed

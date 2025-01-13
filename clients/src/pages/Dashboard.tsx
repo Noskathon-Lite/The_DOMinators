@@ -4,12 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const data = [
-  { month: 'Jan', yield: 4000 },
-  { month: 'Feb', yield: 3000 },
-  { month: 'Mar', yield: 2000 },
-  { month: 'Apr', yield: 2780 },
-  { month: 'May', yield: 1890 },
-  { month: 'Jun', yield: 2390 },
+  { month: 'Aug', yield: 4000 },
+  { month: 'Sep', yield: 3000 },
+  { month: 'Oct', yield: 2000 },
+  { month: 'Nov', yield: 2780 },
+  { month: 'Dec', yield: 1890 },
+  { month: 'Jan', yield: 2390 },
 ];
 
 export default function Dashboard() {

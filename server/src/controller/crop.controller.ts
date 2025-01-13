@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { TryCatch } from "../interfaces/error.interface";
 import CropServices from "../services/crop.services";
+import { faker } from "@faker-js/faker";
+import axios from "axios";
 
 export class CropController {
     public createCrop = TryCatch(
@@ -125,6 +127,34 @@ export class CropController {
                 success: true,
                 message: "Prediction fetched successfully",
                 prediction,
+            });
+        }
+    );
+
+    public fakeData = TryCatch(
+        async (req: Request, res: Response, next: NextFunction) => {
+            const fakeCrop = {
+                name: faker.internet.displayName(),
+                image: await axios.get("https://source.unsplash.com/random"),
+                description: faker.lorem.sentence(),
+                growthFactors: {
+                    soilType: faker.lorem.word(),
+                    waterRequirements: faker.lorem.word(),
+                    temperature: faker.lorem.word(),
+                    fertilizers: [faker.lorem.word(), faker.lorem.word()],
+                },
+                suitableMonths: [faker.date.month()],
+                alternativeCrops: [],
+                customerTrends: {
+                    mostSold: faker.datatype.boolean(),
+                    marketValue: faker.number.int({ min: 1000, max: 10000 }),
+                },
+            };
+
+            return res.status(200).json({
+                success: true,
+                message: "Fake data created successfully",
+                fakeCrop,
             });
         }
     );

@@ -49,4 +49,12 @@ router.post("/predict", async (req, res, next) => {
     }
 });
 
+router.get("/fake", async (req, res, next) => {
+    try {
+        await cropController.fakeData(req, res, next);
+    } catch (error) {
+        next(error);
+    }
+});
+
 export default router;

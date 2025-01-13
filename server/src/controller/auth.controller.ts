@@ -75,8 +75,6 @@ export class AuthController {
 
     public userLogout = TryCatch(
         async (req: Request, res: Response, next: NextFunction) => {
-            req.user = null;
-
             return res
                 .status(200)
                 .cookie("token", "", {

@@ -1,67 +1,122 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import Navbar from '@/components/common/Navbar';
-import { Footer } from '@/components/logincomponents/Footer';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCropPrediction } from '@/store/cropSlice';
-
+import Navbar from "@/components/common/Navbar";
+import { Footer } from "@/components/logincomponents/Footer";
 
 export default function Prediction() {
-  const [temperature, setTemperature] = useState([25]);
-  const [rainfall, setRainfall] = useState([150]);
+  const [temperature, setTemperature] = useState([38]);
+  const [rainfall, setRainfall] = useState([250]);
+  const [humidity, setHumidity] = useState([68]);
+  const [nitrogen, setNitrogen] = useState([34]);
+  const [phosphorous, setPhosphorous] = useState([32]);
+  const [potassium, setPotassium] = useState([64]);
   const [ph, setPh] = useState([6.5]);
-  const [cropType, setCropType] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const dispatch = useDispatch();
-  const { predictionResult, loading, error } = useSelector((state) => state.crop); // Fetch prediction state from Redux
+  const [predictedCrop, setPredictedCrop] = useState<string | null>(null);
 
   const handlePrediction = async () => {
-    if (!cropType) {
-      alert("Please select a crop type");
-      return;
-    }
-
-    // Dispatch the action to get the prediction result from the Redux store
-    dispatch(fetchCropPrediction({
-      cropType,
-      temperature: temperature[0],
-      rainfall: rainfall[0],
-      ph: ph[0]
-    }));
+    setIsLoading(true); // Start loading state
+    setTimeout(async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/predict", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            N: nitrogen[0],
+            P: phosphorous[0],
+            K: potassium[0],
+            temperature: temperature[0],
+            humidity: humidity[0],
+            ph: ph[0],
+            rainfall: rainfall[0],
+          }),
+        });
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          alert("Prediction failed: " + errorData.message);
+          return;
+        }
+  
+        const data = await response.json();
+        setPredictedCrop(data.predicted_crop); // Set the predicted crop
+      } catch (error) {
+        alert("Error while connecting to the prediction API.");
+      } finally {
+        setIsLoading(false); // End loading state
+      }
+    }, 2000); // 2-second delay
   };
-
+  
   return (
-    <div className='bg-gradient-to-b from-green-200 to-white'>
-      <Navbar/>
-      <div className="container max-w-screen-xl  py-12 text-white">
-        <h1 className="text-4xl font-bold mb-8 text-center text-black">Crop Yield Prediction</h1>
-        
+    <div>
+      <Navbar />
+      <div className="container max-w-screen-xl mx-auto py-12 bg-black text-white">
+        <h1 className="text-4xl font-bold mb-8 text-center text-white">
+          Crop Prediction
+        </h1>
+
         <div className="grid gap-8 lg:grid-cols-2 lg:max-w-5xl mx-auto">
           <Card className="bg-gray-800 text-white">
             <CardHeader>
               <CardTitle>Input Parameters</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
+              {/* Nitrogen */}
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-400">Crop Type</label>
-                <Select value={cropType} onValueChange={setCropType} className="1">
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a crop" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="rice">Rice</SelectItem>
-                    <SelectItem value="wheat">Wheat</SelectItem>
-                    <SelectItem value="maize">Maize</SelectItem>
-                    <SelectItem value="potato">Potato</SelectItem>
-                  </SelectContent>
-                </Select>
+                <label className="text-sm font-medium text-gray-400">
+                  Nitrogen (N): {nitrogen} units
+                </label>
+                <Slider
+                  value={nitrogen}
+                  onValueChange={setNitrogen}
+                  min={0}
+                  max={100}
+                  step={1}
+                  className="bg-gray-700"
+                />
               </div>
 
+              {/* Phosphorous */}
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-400">Temperature (°C): {temperature}°C</label>
+                <label className="text-sm font-medium text-gray-400">
+                  Phosphorous (P): {phosphorous} units
+                </label>
+                <Slider
+                  value={phosphorous}
+                  onValueChange={setPhosphorous}
+                  min={0}
+                  max={100}
+                  step={1}
+                  className="bg-gray-700"
+                />
+              </div>
+
+              {/* Potassium */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-400">
+                  Potassium (K): {potassium} units
+                </label>
+                <Slider
+                  value={potassium}
+                  onValueChange={setPotassium}
+                  min={0}
+                  max={100}
+                  step={1}
+                  className="bg-gray-700"
+                />
+              </div>
+
+              {/* Temperature */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-400">
+                  Temperature (°C): {temperature}°C
+                </label>
                 <Slider
                   value={temperature}
                   onValueChange={setTemperature}
@@ -72,20 +127,26 @@ export default function Prediction() {
                 />
               </div>
 
+              {/* Humidity */}
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-400">Rainfall (mm): {rainfall}mm</label>
+                <label className="text-sm font-medium text-gray-400">
+                  Humidity (%): {humidity}%
+                </label>
                 <Slider
-                  value={rainfall}
-                  onValueChange={setRainfall}
+                  value={humidity}
+                  onValueChange={setHumidity}
                   min={0}
-                  max={500}
-                  step={10}
+                  max={100}
+                  step={1}
                   className="bg-gray-700"
                 />
               </div>
 
+              {/* pH */}
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-400">Soil pH: {ph}</label>
+                <label className="text-sm font-medium text-gray-400">
+                  Soil pH: {ph}
+                </label>
                 <Slider
                   value={ph}
                   onValueChange={setPh}
@@ -96,12 +157,27 @@ export default function Prediction() {
                 />
               </div>
 
-              <Button 
-                className="w-full bg-white text-black hover:bg-gray-300" 
+              {/* Rainfall */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-400">
+                  Rainfall (mm): {rainfall}mm
+                </label>
+                <Slider
+                  value={rainfall}
+                  onValueChange={setRainfall}
+                  min={0}
+                  max={500}
+                  step={10}
+                  className="bg-gray-700"
+                />
+              </div>
+
+              {/* Prediction Button */}
+              <Button
                 onClick={handlePrediction}
-                disabled={loading}
+                className="w-full bg-white text-black hover:bg-gray-300"
               >
-                {loading ? 'Generating Prediction...' : 'Generate Prediction'}
+                Generate Prediction
               </Button>
             </CardContent>
           </Card>
@@ -112,27 +188,14 @@ export default function Prediction() {
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
-                {predictionResult ? (
-                  <>
-                    <div>
-                      <p className="text-sm font-medium text-gray-400">Predicted Yield</p>
-                      <p className="text-3xl font-bold">{predictionResult.predictedYield} kg/ha</p>
-                    </div>
+                {
+                  isLoading && <p>Loading...</p>
+                }
 
-                    <div>
-                      <p className="text-sm font-medium text-gray-400">Confidence Level</p>
-                      <p className="text-3xl font-bold">{predictionResult.confidenceLevel}%</p>
-                    </div>
-
-                    <div>
-                      <p className="text-sm font-medium text-gray-400">Recommendations</p>
-                      <ul className="mt-2 space-y-2 text-sm text-gray-300">
-                        {predictionResult.recommendations.map((recommendation: string, index: number) => (
-                          <li key={index}>{recommendation}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </>
+                {predictedCrop ? (
+                  <p className="text-3xl font-bold">
+                    Predicted Crop: {predictedCrop}
+                  </p>
                 ) : (
                   <p>No prediction available yet. Please input the data and generate prediction.</p>
                 )}
@@ -141,7 +204,7 @@ export default function Prediction() {
           </Card>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

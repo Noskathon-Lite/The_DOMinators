@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Leaf, LogIn, UserPlus, LogOut } from 'lucide-react';
+import { Leaf, LogIn, UserPlus, LogOut, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button'; // Assuming `shadcn` Button component
 import { useSelector } from 'react-redux';
 
@@ -8,6 +8,7 @@ export default function Navbar() {
   const navigate = useNavigate(); // Use the useNavigate hook for navigation
   const { isAuthenticated } = useSelector((state) => state.auth);
   const user1 = sessionStorage.getItem('isAuthenticated');
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     console.log(user1);
@@ -29,16 +30,47 @@ export default function Navbar() {
             <Leaf className="h-12 w-12 text-green-500" />
             <h1 className="text-3xl font-bold text-gray-900">ClimateGrow</h1>
           </div>
-          
+
+          {/* Hamburger Menu for Mobile */}
+          <button
+            className="md:hidden block"
+            onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <Menu className="h-6 w-6 text-gray-900" />
+          </button>
+
           {/* Navigation Links */}
-          <div className="hidden md:flex items-center gap-6 flex justify-between">
-          <div className="flex space-x-6 text-black">
+          <div
+            className={`${
+              isMobileMenuOpen ? 'block' : 'hidden'
+            } md:flex md:items-center md:gap-6 text-black`}
+          >
             {(isAuthenticated || user1) && (
-              <div className="flex space-x-4 text-black">
-                <Link to="/home" className="text-lg font-semibold hover:text-green-600">Home</Link>
-                <Link to="/dashboard" className="text-lg font-semibold hover:text-green-600">Dashboard</Link>
-                <Link to="/prediction" className="text-lg font-semibold hover:text-green-600">Prediction</Link>
-                <Link to="/recommendation" className="text-lg font-semibold hover:text-green-600">Recommendation</Link>
+              <div className="flex flex-col md:flex-row md:space-x-6 text-black">
+                <Link
+                  to="/home"
+                  className="text-lg font-semibold hover:text-green-600"
+                >
+                  Home
+                </Link>
+                <Link
+                  to="/dashboard"
+                  className="text-lg font-semibold hover:text-green-600"
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  to="/prediction"
+                  className="text-lg font-semibold hover:text-green-600"
+                >
+                  Prediction
+                </Link>
+                <Link
+                  to="/recommendation"
+                  className="text-lg font-semibold hover:text-green-600"
+                >
+                  Recommendation
+                </Link>
               </div>
             )}
           </div>
@@ -47,21 +79,32 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             {!(isAuthenticated || user1) ? (
               <>
-                <Button variant="outline" onClick={() => navigate('/auth/login')} className="flex items-center gap-1 bg-gray-400 border-none rounded-full">
+                <Button
+                  variant="outline"
+                  onClick={() => navigate('/auth/login')}
+                  className="flex items-center gap-1 bg-gray-400 border-none rounded-full"
+                >
                   <LogIn className="h-4 w-4 text-white" />
                   Login
                 </Button>
-                <Button variant="outline" onClick={() => navigate('/auth/register')} className="flex items-center gap-1 bg-gray-400 border-none rounded-full">
+                <Button
+                  variant="outline"
+                  onClick={() => navigate('/auth/register')}
+                  className="flex items-center gap-1 bg-gray-400 border-none rounded-full"
+                >
                   <UserPlus className="h-4 w-4" />
                   Signup
                 </Button>
               </>
             ) : (
-              <Button variant="outline" onClick={handleLogout} className="flex items-center gap-1 bg-white rounded-full hover:bg-gray-100">
-                <LogOut className="h-4 w-4 text-black  " />
+              <Button
+                variant="outline"
+                onClick={handleLogout}
+                className="flex items-center gap-1 bg-white rounded-full hover:bg-gray-100"
+              >
+                <LogOut className="h-4 w-4 text-black" />
               </Button>
             )}
-          </div>
           </div>
         </div>
       </div>

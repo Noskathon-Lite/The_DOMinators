@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import Navbar from "@/components/common/Navbar";
 import { WeatherDashboard } from "@/components/logincomponents/Wdashboard";
+import { Footer } from "@/components/logincomponents/Footer";
 
 const PEXELS_API_KEY = "yQi3D5OGQ1hiFXu9kOCjNMVjJYxeCnGQvAKvi1mZbClCHurrxuqd5w0f";
 
@@ -124,7 +125,7 @@ export default function Prediction() {
             </CardContent>
           </Card>
           {recommendation && (
-            <Card className="bg-gray-800 text-white">
+            <Card className="bg-gray-800 text-white px-auto py-5">
               <CardContent>
                 <h2 className="text-2xl font-bold mb-4">Recommendation Result</h2>
                 <p className="text-lg">
@@ -141,6 +142,8 @@ export default function Prediction() {
           )}
         </div>
       </div>
+      <Footer/>
+
     </div>
   );
 }
